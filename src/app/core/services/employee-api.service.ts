@@ -14,13 +14,13 @@ import {
   providedIn: 'root',
 })
 export class EmployeeApiService {
-  employeeApiUrl = ConfigService.configSettings.employeeUrl;
+  employeeApiUrl = this.configService.configSettings.employeeUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private configService: ConfigService) {}
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'text/html;charset=utf-8',
+      'Content-Type': 'application/json',
     }),
   };
 

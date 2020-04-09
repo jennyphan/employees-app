@@ -1,43 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
 import { Config } from '../shared/models/config';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ConfigService {
   constructor(private http: HttpClient) {}
   configUrl = 'assets/config/config.json';
-  static configSettings: Config;
+  configSettings: Config;
 
-  load() {
+  load(): Promise<void> {
     const jsonFile = `assets/config/config.json`;
     return new Promise<void>((resolve, reject) => {
+      console.log('in here');
       this.http
         .get(jsonFile)
         .toPromise()
         .then((response: Config) => {
-          ConfigService.configSettings = <Config>response;
+          console.log('in here2');
+          this.configSettings = <Config>response;
+          console.log('in here3', this.configSettings);
           resolve();
         })
         .catch((response: any) => {
+          console.log('error');
           reject(
             `Could not load file '${jsonFile}': ${JSON.stringify(response)}`
           );
         });
     });
-  }
-
-  handleError(error) {
-    let errorMessage = '';
-    console.log('error', error);
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
   }
 }

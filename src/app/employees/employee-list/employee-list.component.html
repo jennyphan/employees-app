@@ -1,1 +1,59 @@
-<p>employee-list works!</p>
+<div class="container custom-container-2">
+  <br />
+  <div class="row row-no-margin">
+    <div class="col-xs-6">
+      <h3>Employee List</h3>
+    </div>
+    <div class="col-xs-6 ml-auto">
+      <button class="btn btn-primary" routerLink="/create-employee">
+        Add Employee
+      </button>
+    </div>
+  </div>
+  <br />
+  <!-- Show it when there is no employee -->
+  <div class="no-data col-sm-12" *ngIf="employees.length == 0">
+    <p>There are no employees</p>
+  </div>
+
+  <!-- Employees list table, it hides when there is no employee -->
+  <div *ngIf="employees.length !== 0" class="col-md-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Salary</th>
+          <th scope="col">Age</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let employee of employees
+              | paginate: { itemsPerPage: count, currentPage: page }
+          "
+        >
+          <td>
+            <a [routerLink]="['/view-employee', employee.id]">{{
+              employee.name
+            }}</a>
+          </td>
+          <td>{{ employee.salary }}</td>
+          <td>{{ employee.age }}</td>
+          <td>
+            <!-- <span class="edit" routerLink="/employee-edit/{{ employee.id }}"
+              >Edit</span
+            >-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="float-right" *ngIf="employees.length !== 0">
+    <pagination-controls
+      class="pagination"
+      (pageChange)="page = $event"
+    ></pagination-controls>
+  </div>
+</div>

@@ -5,7 +5,36 @@ import {
 import { async, inject, TestBed } from '@angular/core/testing';
 import { ConfigService } from '../../config/config.service';
 import { EmployeeApiService } from '../../core/services/employee-api.service';
-import { EmployeeResponse } from '../../shared/models/employee-response';
+import { Employee } from '../../shared/models/employee';
+import {
+  EmployeeAPI,
+  EmployeeResponse,
+} from '../../shared/models/employee-response';
+
+const EMPLOYEE_API: EmployeeAPI = {
+  id: '1',
+  employee_name: 'testName',
+  employee_salary: '50,000',
+  employee_age: '22',
+  profile_image: '',
+};
+
+const EMPLOYEES_API: EmployeeAPI[] = [
+  {
+    id: '1',
+    employee_name: 'testName',
+    employee_salary: '50,000',
+    employee_age: '22',
+    profile_image: '',
+  },
+  {
+    id: '2',
+    employee_name: 'testName2',
+    employee_salary: '60,000',
+    employee_age: '23',
+    profile_image: 'image',
+  },
+];
 
 const EMPLOYEE_RESPONSE_OBJECT: EmployeeResponse = {
   status: 'success',
@@ -41,6 +70,7 @@ class MockConfigService {
   configSettings = { employeeUrl: 'http://dummy.restapiexample.com/api/v1' };
 }
 describe('EmployeeApiService', () => {
+  let employeeApiService: EmployeeApiService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [],
@@ -51,6 +81,10 @@ describe('EmployeeApiService', () => {
       ],
     }).compileComponents();
   }));
+
+  beforeEach(() => {
+    employeeApiService = TestBed.inject(EmployeeApiService);
+  });
 
   afterEach(inject(
     [HttpTestingController],
@@ -96,4 +130,32 @@ describe('EmployeeApiService', () => {
       //mockReq.flush(EMPLOYEES_RESPONSE_OBJECT);
     }
   ));
+
+  it('should mapAPIResponseToEmployeeResponse ', () => {
+    const employee: Employee = employeeApiService.mapAPIResponseToEmployeeResponse(
+      EMPLOYEE_API
+    );
+    expect(employee.id).toBe(EMPLOYEE_API.id);
+    expect(employee.name).toBe(EMPLOYEE_API.employee_name);
+    expect(employee.salary).toBe(EMPLOYEE_API.employee_salary);
+    expect(employee.age).toBe(EMPLOYEE_API.employee_age);
+    expect(employee.profileImage).toBe(EMPLOYEE_API.profile_image);
+  });
+
+  it('should mapAPIResponseToEmployeesResponse ', () => {
+    const employees: Employee[] = employeeApiService.mapAPIResponseToEmployeesResponse(
+      EMPLOYEES_API
+    );
+    expect(employees.length).toBe(2);
+    expect(employees[0].id).toBe(EMPLOYEES_API[0].id);
+    expect(employees[0].name).toBe(EMPLOYEES_API[0].employee_name);
+    expect(employees[0].salary).toBe(EMPLOYEES_API[0].employee_salary);
+    expect(employees[0].age).toBe(EMPLOYEES_API[0].employee_age);
+    expect(employees[0].profileImage).toBe(EMPLOYEES_API[0].profile_image);
+    expect(employees[1].id).toBe(EMPLOYEES_API[1].id);
+    expect(employees[1].name).toBe(EMPLOYEES_API[1].employee_name);
+    expect(employees[1].salary).toBe(EMPLOYEES_API[1].employee_salary);
+    expect(employees[1].age).toBe(EMPLOYEES_API[1].employee_age);
+    expect(employees[1].profileImage).toBe(EMPLOYEES_API[1].profile_image);
+  });
 });

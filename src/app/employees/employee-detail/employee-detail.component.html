@@ -1,8 +1,20 @@
 <div class="container custom-container-2">
   <br />
-  <h3>View Employee</h3>
-  <p></p>
-  <div style="width: 400px;">
+  <div class="row row-no-margin">
+    <div class="col-xs-6">
+      <h3>View Employee</h3>
+    </div>
+    <div class="col-xs-6 ml-auto">
+      <button
+        class="btn btn-primary"
+        [routerLink]="['/update-employee', employeeId]"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="col-xs-6">
     <div>
       <label for="name">Name</label>
       <input

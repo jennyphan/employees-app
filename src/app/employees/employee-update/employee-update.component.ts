@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { EmployeeApiService } from '../../core/services/employee-api.service';
 import { Employee } from '../../shared/models/employee';
 import { EmployeeResponse } from '../../shared/models/employee-response';
@@ -25,20 +26,25 @@ export class EmployeeUpdateComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  onChanges(): void {
+    console.log('in here');
+    this.employeeForm.get('name').valueChanges.subscribe((name) => {
+      console.log('in here name changed');
+    });
+  }
+
   ngOnInit(): void {
     this.employeeId = this.route.snapshot.paramMap.get('id');
     this.getEmployee(this.employeeId);
-    this.createFormControls();
-    this.createFormGroup();
   }
 
-  createFormControls() {
+  createFormControls(): void {
     this.name = new FormControl(this.employee.name, Validators.required);
     this.salary = new FormControl(this.employee.salary, Validators.required);
     this.age = new FormControl(this.employee.age, Validators.required);
   }
 
-  createFormGroup() {
+  createFormGroup(): void {
     this.employeeForm = new FormGroup({
       name: this.name,
       salary: this.salary,
@@ -46,25 +52,18 @@ export class EmployeeUpdateComponent implements OnInit {
     });
   }
 
-  setFormValues() {
-    this.employeeForm &&
-      this.employeeForm.setValue({
-        name: this.employee.name,
-        age: this.employee.age,
-        salary: this.employee.salary,
-      });
-  }
-
-  getEmployee(id: string) {
+  getEmployee(id: string): Subscription {
     return this.employeeService
       .getEmployee(id)
       .subscribe((data: EmployeeResponse) => {
         this.employee = data.employees as Employee;
-        this.setFormValues();
+        this.createFormControls();
+        this.createFormGroup();
+        this.onChanges();
       });
   }
 
-  updateEmployee() {
+  updateEmployee(): void {
     if (this.employeeForm.invalid) {
       return;
     }

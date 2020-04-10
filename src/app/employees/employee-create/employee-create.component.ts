@@ -25,13 +25,13 @@ export class EmployeeCreateComponent implements OnInit {
     this.createFormGroup();
   }
 
-  createFormControls() {
+  createFormControls(): void {
     this.name = new FormControl('', Validators.required);
     this.salary = new FormControl('', Validators.required);
     this.age = new FormControl('', Validators.required);
   }
 
-  createFormGroup() {
+  createFormGroup(): void {
     this.employeeForm = new FormGroup({
       name: this.name,
       salary: this.salary,

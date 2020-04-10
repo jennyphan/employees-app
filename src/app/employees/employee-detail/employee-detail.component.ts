@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { EmployeeApiService } from '../../core/services/employee-api.service';
 import { Employee } from '../../shared/models/employee';
 import { EmployeeResponse } from '../../shared/models/employee-response';
@@ -11,17 +12,19 @@ import { EmployeeResponse } from '../../shared/models/employee-response';
 })
 export class EmployeeDetailComponent implements OnInit {
   employee: Employee = {} as Employee;
+  employeeId: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private employeeService: EmployeeApiService
   ) {}
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
-    this.getEmployee(id);
+    this.employeeId = this.route.snapshot.paramMap.get('id');
+    this.getEmployee(this.employeeId);
   }
 
-  getEmployee(id: string) {
+  getEmployee(id: string): Subscription {
     return this.employeeService
       .getEmployee(id)
       .subscribe((data: EmployeeResponse) => {

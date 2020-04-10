@@ -2,7 +2,7 @@
   <br />
   <h3>Update Employee</h3>
   <p></p>
-  <div [hidden]="submitted" style="width: 400px;">
+  <div *ngIf="employeeForm" [hidden]="submitted" class="col-xs-6">
     <form
       [formGroup]="employeeForm"
       #formEmployee="ngForm"
@@ -77,7 +77,7 @@
         </div>
         <button
           type="submit"
-          [disabled]="employeeForm.invalid"
+          [disabled]="employeeForm.invalid || !employeeForm.touched"
           class="btn btn-primary float-right"
           (click)="updateEmployee()"
         >

@@ -22,7 +22,7 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   getEmployee(id: string) {
-    this.employee = { name: 'Peter', salary: '20000', age: '25' };
+    this.employee = { name: 'Test Name', salary: '20000', age: '25' };
 
     /**return this.employeeApiService
       .getEmployee(id)

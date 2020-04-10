@@ -98,7 +98,6 @@ export class EmployeeApiService {
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
-    console.log('here', employee);
     return this.http
       .post<Employee>(
         this.employeeApiUrl + '/create',

@@ -52,7 +52,7 @@ describe('EmployeeDetailComponent', () => {
     expect(employeeDetailComponent).toBeTruthy();
   });
 
-  it('should call lgetEmployee and return the data for that employee ', async(() => {
+  it('should call getEmployee and return the data for that employee ', async(() => {
     employeeDetailComponent.getEmployee('2');
     fixture.detectChanges();
     expect(employeeDetailComponent.employee).toEqual(EMPLOYEE);

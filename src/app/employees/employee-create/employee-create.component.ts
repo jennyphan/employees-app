@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { EmployeeApiService } from '../../core/services/employee-api.service';
 import { Employee } from '../../shared/models/employee';
 
@@ -19,10 +18,7 @@ export class EmployeeCreateComponent implements OnInit {
 
   submitted = false;
 
-  constructor(
-    private employeeService: EmployeeApiService,
-    private router: Router
-  ) {}
+  constructor(private employeeService: EmployeeApiService) {}
 
   ngOnInit() {
     this.createFormControls();

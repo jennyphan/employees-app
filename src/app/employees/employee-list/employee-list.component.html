@@ -5,7 +5,7 @@
       <h3>Employee List</h3>
     </div>
     <div class="col-xs-6 ml-auto">
-      <button class="btn btn-primary" routerLink="/create-employee">
+      <button class="btn btn-primary" routerLink="/update-employee">
         Add Employee
       </button>
     </div>
@@ -42,9 +42,13 @@
           <td>{{ employee.salary }}</td>
           <td>{{ employee.age }}</td>
           <td>
-            <!-- <span class="edit" routerLink="/employee-edit/{{ employee.id }}"
-              >Edit</span
-            >-->
+            <button
+              routerLink="/update-employee/{{ employee.id }}"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Edit
+            </button>
           </td>
         </tr>
       </tbody>

@@ -2,7 +2,8 @@
   <br />
   <h3>Update Employee</h3>
   <p></p>
-  <div *ngIf="employeeForm" [hidden]="submitted" class="col-xs-6">
+  <alert></alert>
+  <div *ngIf="employeeForm" class="col-xs-6">
     <form
       [formGroup]="employeeForm"
       #formEmployee="ngForm"
@@ -85,8 +86,5 @@
         </button>
       </fieldset>
     </form>
-  </div>
-  <div [hidden]="!submitted">
-    <h4>Employee updated successfully!</h4>
   </div>
 </div>

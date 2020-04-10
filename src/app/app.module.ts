@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { AlertModule } from 'ngx-bootstrap/alert';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +12,8 @@ import { EmployeeListComponent } from './employees/employee-list/employee-list.c
 import { EmployeeUpdateComponent } from './employees/employee-update/employee-update.component';
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AlertComponent } from './shared/directives/alert/alert.component';
+import { AlertService } from './shared/services/alert.service';
 
 export function initializeApp(appConfig: ConfigService) {
   return () => appConfig.load();
@@ -26,11 +27,12 @@ export function initializeApp(appConfig: ConfigService) {
     PageNotFoundComponent,
     EmployeeCreateComponent,
     EmployeeUpdateComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AlertModule.forRoot(),
+
     HttpClientModule,
     NgxPaginationModule,
     FormsModule,
@@ -38,6 +40,7 @@ export function initializeApp(appConfig: ConfigService) {
   ],
   providers: [
     ConfigService,
+    AlertService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,

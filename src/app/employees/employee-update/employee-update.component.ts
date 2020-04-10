@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { EmployeeApiService } from '../../core/services/employee-api.service';
 import { Employee } from '../../shared/models/employee';
 import { EmployeeResponse } from '../../shared/models/employee-response';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-employee-update',
   templateUrl: './employee-update.component.html',
   styleUrls: ['./employee-update.component.scss'],
 })
-export class EmployeeUpdateComponent implements OnInit {
+export class EmployeeUpdateComponent implements OnInit, OnDestroy {
   employee: Employee = {} as Employee;
   name: FormControl;
   age: FormControl;
@@ -20,20 +21,17 @@ export class EmployeeUpdateComponent implements OnInit {
 
   employeeForm: FormGroup;
 
-  submitted = false;
   constructor(
     private employeeService: EmployeeApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    protected alertService: AlertService
   ) {}
 
-  onChanges(): void {
-    console.log('in here');
-    this.employeeForm.get('name').valueChanges.subscribe((name) => {
-      console.log('in here name changed');
-    });
+  ngOnDestroy(): void {
+    this.alertService.clearMessage();
   }
-
   ngOnInit(): void {
+    this.alertService.clearMessage();
     this.employeeId = this.route.snapshot.paramMap.get('id');
     this.getEmployee(this.employeeId);
   }
@@ -59,7 +57,6 @@ export class EmployeeUpdateComponent implements OnInit {
         this.employee = data.employees as Employee;
         this.createFormControls();
         this.createFormGroup();
-        this.onChanges();
       });
   }
 
@@ -76,9 +73,11 @@ export class EmployeeUpdateComponent implements OnInit {
       .updateEmployee(this.employeeId, this.employee)
       .subscribe(
         (data) => {
-          this.submitted = true;
+          this.alertService.success('Update Successful');
         },
-        (error) => console.log(error)
+        (error) => {
+          this.alertService.error('There was an error updating the employee');
+        }
       );
   }
 }

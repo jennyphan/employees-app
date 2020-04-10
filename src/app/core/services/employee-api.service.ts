@@ -73,9 +73,9 @@ export class EmployeeApiService {
       );
   }
 
-  /**getEmployee(id: string): Observable<EmployeeResponse> {
+  getEmployee(id: string): Observable<EmployeeResponse> {
     return this.http
-      .get<any>(this.employeeApiURL + '/employee/' + id, this.httpOptions)
+      .get<any>(this.employeeApiUrl + '/employee/' + id, this.httpOptions)
       .pipe(
         map((data: any) => {
           console.log('dadta', data);
@@ -89,13 +89,13 @@ export class EmployeeApiService {
         retry(1),
         catchError(this.handleError)
       );
-  }**/
+  }
 
-  getEmployee(id: string): Observable<EmployeeResponse> {
+  /**getEmployee(id: string): Observable<EmployeeResponse> {
     return this.http
       .get<any>(this.employeeApiUrl + '/employee/' + id, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
-  }
+  }**/
 
   createEmployee(employee: Employee): Observable<Employee> {
     return this.http
@@ -107,7 +107,6 @@ export class EmployeeApiService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  // HttpClient API put() method => Update employee
   updateEmployee(id: number, employee: Employee): Observable<Employee> {
     return this.http
       .put<Employee>(

@@ -1,39 +1,40 @@
-<!--<div class="container custom-container">
-  <div class="col-md-12">
-    <h3 class="mb-3 text-center">View Employee</h3>
-
-    <div class="form-group">
+<div class="container custom-container-2">
+  <br />
+  <h3>View Employee</h3>
+  <p></p>
+  <div style="width: 400px;">
+    <div>
+      <label for="name">Name</label>
       <input
-        type="text"
-        [(ngModel)]="employee.name"
+        disabled
         class="form-control"
+        type="text"
+        id="name"
         placeholder="Name"
+        value="{{ employee.name }}"
       />
     </div>
-
-    <div class="form-group">
+    <div>
+      <label for="salary">Salary</label>
       <input
+        disabled
         type="text"
-        [(ngModel)]="employee.salary"
         class="form-control"
+        id="salary"
         placeholder="Salary"
+        value="{{ employee.salary }}"
       />
     </div>
-
-    <div class="form-group">
+    <div>
+      <label for="age">Age</label>
       <input
+        disabled
         type="text"
-        [(ngModel)]="employee.age"
         class="form-control"
+        id="age"
         placeholder="Age"
+        value="{{ employee.age }}"
       />
-    </div>
-
-    <div class="form-group">
-      <button class="btn btn-success btn-lg btn-block">
-        Update Employee
-      </button>
     </div>
   </div>
 </div>
--->

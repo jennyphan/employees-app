@@ -31,10 +31,6 @@ export class EmployeeCreateComponent implements OnInit {
     this.age = new FormControl('', Validators.required);
   }
 
-  clearForm() {
-    this.employeeForm.reset();
-  }
-
   createFormGroup() {
     this.employeeForm = new FormGroup({
       name: this.name,

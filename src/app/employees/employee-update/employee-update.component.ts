@@ -1,0 +1,85 @@
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { EmployeeApiService } from '../../core/services/employee-api.service';
+import { Employee } from '../../shared/models/employee';
+import { EmployeeResponse } from '../../shared/models/employee-response';
+
+@Component({
+  selector: 'app-employee-update',
+  templateUrl: './employee-update.component.html',
+  styleUrls: ['./employee-update.component.scss'],
+})
+export class EmployeeUpdateComponent implements OnInit {
+  employee: Employee = {} as Employee;
+  name: FormControl;
+  age: FormControl;
+  salary: FormControl;
+  employeeId: string = '';
+
+  employeeForm: FormGroup;
+
+  submitted = false;
+  constructor(
+    private employeeService: EmployeeApiService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.employeeId = this.route.snapshot.paramMap.get('id');
+    this.getEmployee(this.employeeId);
+    this.createFormControls();
+    this.createFormGroup();
+  }
+
+  createFormControls() {
+    this.name = new FormControl(this.employee.name, Validators.required);
+    this.salary = new FormControl(this.employee.salary, Validators.required);
+    this.age = new FormControl(this.employee.age, Validators.required);
+  }
+
+  createFormGroup() {
+    this.employeeForm = new FormGroup({
+      name: this.name,
+      salary: this.salary,
+      age: this.age,
+    });
+  }
+
+  setFormValues() {
+    this.employeeForm &&
+      this.employeeForm.setValue({
+        name: this.employee.name,
+        age: this.employee.age,
+        salary: this.employee.salary,
+      });
+  }
+
+  getEmployee(id: string) {
+    return this.employeeService
+      .getEmployee(id)
+      .subscribe((data: EmployeeResponse) => {
+        this.employee = data.employees as Employee;
+        this.setFormValues();
+      });
+  }
+
+  updateEmployee() {
+    if (this.employeeForm.invalid) {
+      return;
+    }
+
+    this.employee.name = this.employeeForm.get('name').value;
+    this.employee.age = this.employeeForm.get('age').value;
+    this.employee.salary = this.employeeForm.get('salary').value;
+
+    this.employeeService
+      .updateEmployee(this.employeeId, this.employee)
+      .subscribe(
+        (data) => {
+          this.submitted = true;
+        },
+        (error) => console.log(error)
+      );
+  }
+}

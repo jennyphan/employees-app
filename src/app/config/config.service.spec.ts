@@ -27,7 +27,6 @@ describe('ConfigService', () => {
 
   /**it('should create', () => {
     configService.load().then(() => {
-      console.log('here2');
       expect(configService.configSettings.employeeUrl).toBe('success');
     });
   });**/
@@ -37,7 +36,6 @@ describe('ConfigService', () => {
     [ConfigService],
     async (service: ConfigService) => {
       await service.load().then(() => {
-        console.log('here2');
         expect(service.configSettings.employeeUrl).toBe('success');
       
       });

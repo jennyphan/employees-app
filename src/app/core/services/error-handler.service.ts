@@ -1,11 +1,11 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ErrorHandlerService implements ErrorHandler {
   constructor(private injector: Injector) {}
 
-  handleError(error) {
+  handleError(error?) {
     // Log to service
     console.log('error', error);
     const router = this.injector.get(Router);

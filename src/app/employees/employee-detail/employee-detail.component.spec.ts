@@ -29,8 +29,6 @@ describe('EmployeeDetailComponent', () => {
   let employeeDetailComponent: EmployeeDetailComponent;
   let fixture: ComponentFixture<EmployeeDetailComponent>;
 
-  let employeeService: EmployeeApiService;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EmployeeDetailComponent],

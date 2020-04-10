@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { EmployeeApiService } from '../../core/services/employee-api.service';
 import { Employee } from '../../shared/models/employee';
+import { EmployeeResponse } from '../../shared/models/employee-response';
 
 @Component({
   selector: 'app-employee-detail',
@@ -12,8 +13,7 @@ export class EmployeeDetailComponent implements OnInit {
   employee: Employee = {} as Employee;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private employeeApiService: EmployeeApiService
+    private employeeService: EmployeeApiService
   ) {}
 
   ngOnInit(): void {
@@ -22,12 +22,10 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   getEmployee(id: string) {
-    this.employee = { name: 'Test Name', salary: '20000', age: '25' };
-
-    /**return this.employeeApiService
+    return this.employeeService
       .getEmployee(id)
       .subscribe((data: EmployeeResponse) => {
         this.employee = data.employees as Employee;
-      });**/
+      });
   }
 }

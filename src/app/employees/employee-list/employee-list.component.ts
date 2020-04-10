@@ -12,7 +12,7 @@ export class EmployeeListComponent implements OnInit {
   employees: Employee[] = [] as Employee[];
 
   page: number = 1;
-  count: number = 10;
+  itemsPerPage: number = 10;
 
   constructor(public employeeApiService: EmployeeApiService) {}
 

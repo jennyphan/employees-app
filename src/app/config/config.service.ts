@@ -13,14 +13,11 @@ export class ConfigService {
   load(): Promise<void> {
     const jsonFile = `assets/config/config.json`;
     return new Promise<void>((resolve, reject) => {
-      console.log('in here');
       this.http
         .get(jsonFile)
         .toPromise()
         .then((response: Config) => {
-          console.log('in here2');
           this.configSettings = <Config>response;
-          console.log('in here3', this.configSettings);
           resolve();
         })
         .catch((response: any) => {

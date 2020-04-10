@@ -20,12 +20,7 @@ export class EmployeeApiService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Methods': 'GET,POST,PATCH,DELETE,PUT,OPTIONS',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers':
-        'Origin, Content-Type, X-Auth-Token, content-type',
     }),
   };
 
@@ -78,7 +73,6 @@ export class EmployeeApiService {
       .get<any>(this.employeeApiUrl + '/employee/' + id, this.httpOptions)
       .pipe(
         map((data: any) => {
-          console.log('dadta', data);
           return {
             status: data.status,
             employees: this.mapAPIResponseToEmployeeResponse(
@@ -91,12 +85,6 @@ export class EmployeeApiService {
       );
   }
 
-  /**getEmployee(id: string): Observable<EmployeeResponse> {
-    return this.http
-      .get<any>(this.employeeApiUrl + '/employee/' + id, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
-  }**/
-
   createEmployee(employee: Employee): Observable<Employee> {
     return this.http
       .post<Employee>(
@@ -107,10 +95,10 @@ export class EmployeeApiService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  updateEmployee(id: number, employee: Employee): Observable<Employee> {
+  updateEmployee(id: string, employee: Employee): Observable<Employee> {
     return this.http
       .put<Employee>(
-        this.employeeApiUrl + '/employees/' + id,
+        this.employeeApiUrl + '/update/' + id,
         JSON.stringify(employee),
         this.httpOptions
       )
@@ -127,7 +115,7 @@ export class EmployeeApiService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert(errorMessage);
+    //window.alert(errorMessage);
     return throwError(errorMessage);
   }
 }

@@ -1,0 +1,92 @@
+<div class="container custom-container-2">
+  <br />
+  <h3>Update Employee</h3>
+  <p></p>
+  <div [hidden]="submitted" style="width: 400px;">
+    <form
+      [formGroup]="employeeForm"
+      #formEmployee="ngForm"
+      novalidate
+      class="form-horizontal"
+    >
+      <fieldset>
+        <div
+          class="form-group required"
+          [ngClass]="{ 'has-error': name.errors && name.dirty }"
+        >
+          <p class="float-right mb-0">
+            <label class="control-label" for="name">Required Field</label>
+          </p>
+          <label class="control-label" for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            placeholder="Name"
+          />
+          <div
+            *ngIf="name.touched && name.errors && name.errors.required"
+            class="text-danger"
+          >
+            Name required
+          </div>
+        </div>
+
+        <div
+          class="form-group required"
+          [ngClass]="{ 'has-error': salary.errors && salary.dirty }"
+        >
+          <label class="control-label" or="salary">Salary</label>
+          <input
+            type="text"
+            class="form-control"
+            id="salary"
+            formControlName="salary"
+            placeholder="Salary"
+          />
+          <div
+            *ngIf="salary.touched && salary.errors && salary.errors.required"
+            class="text-danger"
+          >
+            Salary required
+          </div>
+        </div>
+
+        <div
+          class="form-group required"
+          [ngClass]="{ 'has-error': age.invalid && age.dirty }"
+        >
+          <label class="control-label" for="age">Age</label>
+          <input
+            type="text"
+            pattern="[0-9]*"
+            maxlength="3"
+            class="form-control"
+            id="age"
+            required
+            formControlName="age"
+            placeholder="Age"
+          />
+          <div
+            *ngIf="age.touched && age.errors && age.errors.required"
+            class="text-danger"
+          >
+            Age required
+          </div>
+        </div>
+        <button
+          type="submit"
+          [disabled]="employeeForm.invalid"
+          class="btn btn-primary float-right"
+          (click)="updateEmployee()"
+        >
+          Update
+        </button>
+      </fieldset>
+    </form>
+  </div>
+  <div [hidden]="!submitted">
+    <h4>Employee updated successfully!</h4>
+  </div>
+</div>

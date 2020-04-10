@@ -20,7 +20,7 @@ export class EmployeeCreateComponent implements OnInit {
 
   constructor(private employeeService: EmployeeApiService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createFormControls();
     this.createFormGroup();
   }

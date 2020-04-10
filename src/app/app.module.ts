@@ -10,6 +10,7 @@ import { ConfigService } from './config/config.service';
 import { ErrorHandlerService } from './core/services/error-handler.service';
 import { EmployeeCreateComponent } from './employees/employee-create/employee-create.component';
 import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
+import { EmployeeUpdateComponent } from './employees/employee-update/employee-update.component';
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -24,6 +25,7 @@ export function initializeApp(appConfig: ConfigService) {
     HeaderComponent,
     PageNotFoundComponent,
     EmployeeCreateComponent,
+    EmployeeUpdateComponent,
   ],
   imports: [
     BrowserModule,

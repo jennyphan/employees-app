@@ -19,6 +19,21 @@ const EMPLOYEE_API: EmployeeAPI = {
   profile_image: '',
 };
 
+const EMPLOYEE: Employee = {
+  name: 'testName',
+  salary: '50,000',
+  age: '22',
+};
+
+const EMPLOYEE_API_RESPONSE: any = {
+  status: 'success',
+  data: {
+    name: 'testName',
+    salary: '50,000',
+    age: '22',
+  },
+};
+
 const EMPLOYEES_API: EmployeeAPI[] = [
   {
     id: '1',
@@ -125,6 +140,41 @@ describe('EmployeeApiService', () => {
       // We set the expectations for the HttpClient mock
       const mockReq = httpMock.expectOne('http://.../employee/1');
       expect(mockReq.request.method).toEqual('GET');
+      expect(mockReq.request.responseType).toEqual('json');
+      // Then we set the fake data to be returned by the mock
+      //mockReq.flush(EMPLOYEES_RESPONSE_OBJECT);
+    }
+  ));
+  it('expects service to create an employee ', inject(
+    [HttpTestingController, EmployeeApiService],
+    (httpMock: HttpTestingController, service: EmployeeApiService) => {
+      service.employeeApiUrl = 'http://...';
+      service.createEmployee(EMPLOYEE).subscribe((data: any) => {
+        expect(data.status).toBe('success');
+        // const employees = data.employees as Employee[];
+        // expect(employees.length).toBe(24);
+      });
+      // We set the expectations for the HttpClient mock
+      const mockReq = httpMock.expectOne('http://.../create');
+      expect(mockReq.request.method).toEqual('POST');
+      expect(mockReq.request.responseType).toEqual('json');
+      // Then we set the fake data to be returned by the mock
+      //mockReq.flush(EMPLOYEES_RESPONSE_OBJECT);
+    }
+  ));
+
+  it('expects service to UPDATE an employee ', inject(
+    [HttpTestingController, EmployeeApiService],
+    (httpMock: HttpTestingController, service: EmployeeApiService) => {
+      service.employeeApiUrl = 'http://...';
+      service.updateEmployee('1', EMPLOYEE).subscribe((data: any) => {
+        expect(data.status).toBe('success');
+        // const employees = data.employees as Employee[];
+        // expect(employees.length).toBe(24);
+      });
+      // We set the expectations for the HttpClient mock
+      const mockReq = httpMock.expectOne('http://.../update/1');
+      expect(mockReq.request.method).toEqual('PUT');
       expect(mockReq.request.responseType).toEqual('json');
       // Then we set the fake data to be returned by the mock
       //mockReq.flush(EMPLOYEES_RESPONSE_OBJECT);

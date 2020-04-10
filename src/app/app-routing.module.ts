@@ -24,6 +24,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'create-employee',
+    loadChildren: () =>
+      import('./employees/employee-create/employee-create.module').then(
+        (m) => m.EmployeeCreateModule
+      ),
+  },
+  {
     path: 'error',
     component: ErrorComponent,
   },

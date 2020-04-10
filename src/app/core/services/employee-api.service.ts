@@ -20,7 +20,12 @@ export class EmployeeApiService {
 
   httpOptions = {
     headers: new HttpHeaders({
+      Accept: 'application/json',
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Methods': 'GET,POST,PATCH,DELETE,PUT,OPTIONS',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers':
+        'Origin, Content-Type, X-Auth-Token, content-type',
     }),
   };
 
@@ -50,7 +55,10 @@ export class EmployeeApiService {
 
   getEmployees(): Observable<EmployeeResponse> {
     return this.http
-      .get<EmployeeStatusAPI>(this.employeeApiUrl + '/employees')
+      .get<EmployeeStatusAPI>(
+        this.employeeApiUrl + '/employees',
+        this.httpOptions
+      )
       .pipe(
         map((data: EmployeeStatusAPI) => {
           return {
@@ -90,9 +98,10 @@ export class EmployeeApiService {
   }
 
   createEmployee(employee: Employee): Observable<Employee> {
+    console.log('here', employee);
     return this.http
       .post<Employee>(
-        this.employeeApiUrl + '/employees',
+        this.employeeApiUrl + '/create',
         JSON.stringify(employee),
         this.httpOptions
       )

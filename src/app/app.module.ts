@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -7,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConfigService } from './config/config.service';
 import { ErrorHandlerService } from './core/services/error-handler.service';
+import { EmployeeCreateComponent } from './employees/employee-create/employee-create.component';
 import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -21,6 +23,7 @@ export function initializeApp(appConfig: ConfigService) {
     EmployeeListComponent,
     HeaderComponent,
     PageNotFoundComponent,
+    EmployeeCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,8 @@ export function initializeApp(appConfig: ConfigService) {
     AlertModule.forRoot(),
     HttpClientModule,
     NgxPaginationModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     ConfigService,

@@ -17,3 +17,13 @@ body {
   margin-left: 0px !important;
   margin-right: 0px !important;
 }
+
+.has-error input[type="text"] {
+  border-color: rgb(216, 12, 12);
+  color: rgb(230, 14, 14);
+}
+
+.form-group.required .control-label:after {
+  content: "*";
+  color: red;
+}
